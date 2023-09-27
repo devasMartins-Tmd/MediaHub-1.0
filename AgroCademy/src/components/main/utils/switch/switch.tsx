@@ -12,8 +12,8 @@ const Switcher2 = () => {
 
   useEffect(() => {
     const body = document.querySelector('body') as HTMLBodyElement;
-    body.className = mode ? 'bg-[#1F1F1F]' : 'bg-white';
-  }, [mode]);
+    body.className = mode ? 'bg-[hsl(0,3%,10%)]' : 'bg-white';
+  }, [mode, isChecked]);
 
   return (
     <>

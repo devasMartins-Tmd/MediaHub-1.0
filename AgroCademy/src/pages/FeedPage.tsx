@@ -33,9 +33,10 @@ const FeedPage = () => {
   if (query.status === 'loading') return <Loader on={query.status === 'loading'} />;
 
   if (query.status === 'success' && query.data) {
+    let sorted = query.data.data;
     return (
-      <main className='grid sm:grid-cols-2 grid-cols-1 items-start mt-10 sm:w-full w-[95%] mx-auto gap-4'>
-        {query.data.data.map((item: any, index: number) => {
+      <main className='grid sm:grid-cols-2 grid-cols-1 items-start sm:mt-10 mt-2 w-full mx-auto sm:gap-4'>
+        {sorted.map((item: any, index: number) => {
           return (
             <div key={index}>
               <PostTemplate

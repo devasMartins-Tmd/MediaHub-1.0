@@ -50,13 +50,20 @@ export const getWelcomeRoute = async (req: Request, res: Response) => {
 export const getExploreUsers = async (req: Request, res: Response) => {
   let tokenId: any = jsonWebToken.decode(req.headers.authorization || '');
   tokenId = tokenId['id'];
+
   let user: userT | null = await userModel.findById(tokenId);
+
   let friends = await all.friends.find(
     { userId: user?.id },
     { frndId: 1, frndName: 1, _id: 0, userId: 1 }
   );
+
+  console.log(friends);
+
   let friendsId = friends.map((item) => item.frndId).filter((item: any) => item !== '');
+
   console.log(friendsId);
+
   if (user) {
     let allUsers = await userModel.find(
       {
@@ -64,6 +71,7 @@ export const getExploreUsers = async (req: Request, res: Response) => {
       },
       { name: 1, _id: 1, tag: 1, profileImg: 1 }
     );
+    console.log(allUsers);
 
     if (allUsers) {
       res.status(200).json({ done: true, explore: allUsers });

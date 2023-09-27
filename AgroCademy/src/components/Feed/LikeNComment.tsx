@@ -55,7 +55,7 @@ export function LikeNComment({
           <div className='flex justify-start cursor-pointer mr-5' key={index}>
             <i
               className={`${
-                mode ? 'text-slate-100' : 'text-[#191919]'
+                mode ? 'text-[hsl(0,0%,80%)]' : 'text-[hsl(0,0%,10%)]'
               } text-2xl material-icons-outlined`}
               onClick={() => {
                 if (index === 0) {

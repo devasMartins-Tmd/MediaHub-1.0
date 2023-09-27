@@ -61,14 +61,18 @@ const ExplorePage = () => {
           Find Friends
         </h1>
         <section className='sm:w-[90%] w-[97%] mx-auto grid grid-cols-1 gap-4'>
-          {isSuccess && data && data.length > 0 ? (
+          {isSuccess && data && data.explore.length > 0 ? (
             data?.explore.map(
-              (item: { name: string; profileImg: string; tag: string; _id: string }) => {
+              (
+                item: { name: string; profileImg: string; tag: string; _id: string },
+                index: number
+              ) => {
                 return (
                   <div
-                    className={`flex flex-row items-center w-full p-3 justify-between ${
+                    key={index}
+                    className={`flex flex-row items-center w-full p-3 justify-between border ${
                       mode
-                        ? 'bg-gradient-to-tr from-emerald-700 to-slate-700'
+                        ? 'bg-[hsl(0,0%,10%)] border-[hsl(0,0%,20%)] text-white'
                         : 'bg-white border border-[#c4c4c4]'
                     } rounded-lg`}
                   >
@@ -78,30 +82,30 @@ const ExplorePage = () => {
                         alt='explore user image'
                         className='w-12 h-12 rounded-full border border-[#c4c4c4] object-cover'
                       />
-                      <p className='flex justify-start ml-3 font-open text-lg font-semibold'>
+                      <p className='flex justify-start ml-3 font-script uppercase text-lg font-semibold'>
                         {item.name}
                       </p>
                     </div>
                     <button
                       className={`${
-                        mode ? 'bg-emerald-700' : 'bg-white border border-[#d4d4d4]'
-                      } rounded-full px-4 shadow  p-2 flex justify-center`}
+                        mode ? '' : 'border border-[#d4d4d4]'
+                      } bg-[hsl(142,26%,48%)] rounded-full px-4 shadow  p-2 flex justify-center`}
                       onClick={() => mutation.mutate(item._id)}
                     >
-                      <span
+                      <i
                         className={`${
-                          mode ? 'text-white ' : 'text-black'
-                        } font-semibold font-open text-sm`}
+                          mode ? 'text-white' : 'text-black'
+                        } font-semibold text-xl self-center material-icons-outlined`}
                       >
-                        Follow
-                      </span>
+                        person_add
+                      </i>
                     </button>
                   </div>
                 );
               }
             )
           ) : (
-            <EmptyField text='Friend List' />
+            <EmptyField text='Friend List' size='w-1/2' />
           )}
         </section>
       </main>

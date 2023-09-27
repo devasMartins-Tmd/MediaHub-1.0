@@ -39,13 +39,13 @@ export const InputComment = ({
   return (
     <div
       className={`${
-        mode ? 'bg-[#242424]' : 'text-[#FAFAFA]'
-      } flex flex-row items-center w-full shadow rounded sticky bottom-0`}
+        mode ? 'bg-[hsl(0,0%,10%)]' : 'bg-[hsl(0,0%,90%)]'
+      } flex flex-row items-center w-full rounded sticky bottom-0`}
     >
       <input
         type={'text'}
         className={`p-2 font-open text-sm w-[85%] outline-none ${
-          mode ? 'bg-[#e6e6e6]' : 'text-[#252525]'
+          mode ? 'bg-[hsl(0,0%,10%)] placeholder:text-[hsl(0,0%,80%)]' : 'bg-[hsl(0,0%,96%)]'
         } rounded-l`}
         alt='input'
         ref={ref}

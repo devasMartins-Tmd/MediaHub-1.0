@@ -1,7 +1,7 @@
 import { exp, expL } from '..';
 import { useMutation } from '@tanstack/react-query';
 import { backendUrl } from '../main/utils/url';
-import { useContext, useEffect, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import RefetchContext from '../../context/refetch';
 import { uiTime } from '../main/utils/function';
 
@@ -60,12 +60,8 @@ export const Main = ({
     },
   });
 
-  useEffect(() => {
-    console.log(new Date(date).getMinutes());
-  });
-
   return (
-    <div className={`flex flex-row items-center justify-between w-full relative`}>
+    <div className={`flex flex-row items-center justify-between w-full relative mb-2`}>
       <div className='flex flex-row items-center w-full justify-start'>
         <div className={'w-auto h-auto mr-2 self-center'}>
           <img
