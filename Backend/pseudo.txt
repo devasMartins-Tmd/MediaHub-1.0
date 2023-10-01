@@ -1,8 +1,0 @@
-Likes:
-    GET -> [postId, userId, auth_jwt].
-    AUTHENTICATE_ALL.
-    USING postId;
-        FIND post and UPDATE(increment) like 
-                            IF user(userId) haven't liked it before
-                            ELSE UPDATE(decrement)
-    
