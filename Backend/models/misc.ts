@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 const model = mongoose.model;
 
-const following = new mongoose.Schema(
+const notifications = new mongoose.Schema(
   {
-    all: {
-      type: [{ type: mongoose.Schema.Types.String }],
-    },
+    text: mongoose.Schema.Types.String,
+    type: mongoose.Schema.Types.String,
+    userId: mongoose.Schema.Types.String,
   },
   { timestamps: true }
 );
@@ -31,8 +31,9 @@ const feed = new mongoose.Schema(
 );
 
 const all = {
-  following: model('following', following),
+  notifications: model('notifications', notifications),
   friends: model('friends', friends),
   feed: model('feed', feed),
 };
+
 export default all;

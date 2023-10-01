@@ -8,14 +8,14 @@ const DesktopNavbar = () => {
       <nav className='w-full flex flex-row items-center px-5 py-1 justify-between'>
         <div className='flex flex-row items-center w-full'>
           <i className={`fa text-3xl mr-2 ${mode ? 'text-[#FAFAF9]' : 'text-[#111111]'}`}>
-            &#xf20d;
+            &#xf20e;
           </i>
           <p
-            className={`text-xl font-open font-semibold text-black uppercase ${
+            className={`text-xl font-play font-semibold text-black uppercase ${
               mode ? 'text-[#FAFAF9]' : 'text-[#111111]'
             }`}
           >
-            Agrocademy
+            Twilight
           </p>
         </div>
         <div className='flex flex-row items-center justify-between w-[15%]'>
@@ -30,7 +30,6 @@ const DesktopNavbar = () => {
             </i>
           </div>
           <div className='flex justify-center relative'>
-            <span className='w-[7px] h-[7px] rounded-full bg-green-500 absolute top-[18%]'></span>
             <i
               className={`material-icons-outlined text-2xl ${
                 mode ? 'text-[#FAFAF9]' : 'text-[#111111]'

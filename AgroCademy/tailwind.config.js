@@ -8,7 +8,7 @@ export default {
         mukta: ['Mukta'],
         open: ['Open Sans', 'serif'],
         fira: ['Fira Code', 'mono'],
-        script: ['Dancing Script', 'mono'],
+        play: ['Playfair Display', 'mono'],
       },
       rotate: {
         270: '270deg',

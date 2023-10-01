@@ -11,6 +11,7 @@ export function LikeNComment({
   userId,
   id,
   query,
+  isLiked,
 }: {
   likes: number;
   comment: any[];
@@ -18,13 +19,14 @@ export function LikeNComment({
   userId: string;
   id: string;
   query: { refetch: Function };
+  isLiked: boolean;
 }) {
   let auth = localStorage.getItem('-jwtKey-');
 
   //mutate post like field
   const likeMutation = useMutation({
-    mutationFn: async ({ id, userId }: { id: string; userId: string }) => {
-      const A = await fetch(`${backendUrl}/function/post/like/inc/${id}/${userId}`, {
+    mutationFn: async ({ id }: { id: string }) => {
+      const A = await fetch(`${backendUrl}/function/post/like/inc/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +38,9 @@ export function LikeNComment({
 
     mutationKey: ['like', 'postlike'],
 
-    onSuccess: () => query.refetch(),
+    onSuccess: () => {
+      query.refetch();
+    },
   });
 
   let { commentMod, setCommentMod } = useContext(CommentContext);
@@ -48,18 +52,18 @@ export function LikeNComment({
       data-post={id}
     >
       {[
-        { i: 'thumb_up_alt', val: likes },
-        { i: 'comment', val: comment ? comment.length : 0 },
+        { i: isLiked ? 'favorite' : 'favorite_border', val: likes },
+        { i: 'chat_bubble', val: comment ? comment.length : 0 },
       ].map(({ i, val }, index) => {
         return (
           <div className='flex justify-start cursor-pointer mr-5' key={index}>
             <i
               className={`${
-                mode ? 'text-[hsl(0,0%,80%)]' : 'text-[hsl(0,0%,10%)]'
-              } text-2xl material-icons-outlined`}
+                mode ? 'text-[hsl(0,0%,70%)]' : 'text-[hsl(0,0%,20%)]'
+              } text-xl material-icons-outlined`}
               onClick={() => {
                 if (index === 0) {
-                  likeMutation.mutate({ id, userId });
+                  likeMutation.mutate({ id });
                   queryClient.refetchQueries();
                 } else {
                   query.refetch(['getComment', 'getPost']);
@@ -72,7 +76,7 @@ export function LikeNComment({
             <span
               className={`${
                 mode ? 'text-slate-100' : 'text-[#191919]'
-              } text-base text-left ml-2 self-center font-medium`}
+              } text-sm text-left ml-0.5 self-center font-medium`}
             >
               {val}
             </span>

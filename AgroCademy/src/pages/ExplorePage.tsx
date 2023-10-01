@@ -80,22 +80,22 @@ const ExplorePage = () => {
                       <img
                         src={item.profileImg || Exp}
                         alt='explore user image'
-                        className='w-12 h-12 rounded-full border border-[#c4c4c4] object-cover'
+                        className='w-10 h-10 rounded-full border border-[#c4c4c4] object-cover'
                       />
-                      <p className='flex justify-start ml-3 font-script uppercase text-lg font-semibold'>
+                      <p className='flex justify-start ml-3 font-open capitalize text-base font-semibold'>
                         {item.name}
                       </p>
                     </div>
                     <button
                       className={`${
-                        mode ? '' : 'border border-[#d4d4d4]'
-                      } bg-[hsl(142,26%,48%)] rounded-full px-4 shadow  p-2 flex justify-center`}
+                        mode ? 'bg-[hsl(0,0%,30%)]' : 'bg-[hsl(0,0%,20%)]'
+                      } rounded-lg px-8 flex justify-center`}
                       onClick={() => mutation.mutate(item._id)}
                     >
                       <i
                         className={`${
-                          mode ? 'text-white' : 'text-black'
-                        } font-semibold text-xl self-center material-icons-outlined`}
+                          mode ? 'text-white' : 'text-white'
+                        } font-thin text-xl self-center material-icons-outlined`}
                       >
                         person_add
                       </i>

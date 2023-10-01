@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useMemo } from 'react';
 import ThemeContext from '../../../../context/theme';
-
 const Switcher2 = () => {
   const [isChecked, setIsChecked] = useState(false);
   let { mode, setmode } = useContext(ThemeContext);
@@ -10,9 +9,14 @@ const Switcher2 = () => {
     setmode(!isChecked);
   };
 
+  let Translate = useMemo(() => {
+    return mode && isChecked;
+  }, [mode, isChecked]);
+
   useEffect(() => {
+    console.log(isChecked, mode, Translate);
     const body = document.querySelector('body') as HTMLBodyElement;
-    body.className = mode ? 'bg-[hsl(0,3%,10%)]' : 'bg-white';
+    body.className = mode ? 'bg-[hsl(0,3%,10%)]' : 'bg-[hsl(0,0%,100%)]';
   }, [mode, isChecked]);
 
   return (

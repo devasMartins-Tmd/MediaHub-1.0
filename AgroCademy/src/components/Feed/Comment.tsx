@@ -1,6 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { useContext, useRef, useState } from 'react';
 import { backendUrl } from '../main/utils/url';
+
+// import RefetchContext from '../../context/refetch';
+import CommentContext from '../../context/comment';
 import RefetchContext from '../../context/refetch';
 
 export const InputComment = ({
@@ -14,6 +17,7 @@ export const InputComment = ({
 }) => {
   let [commentText, setcommentText] = useState('');
   let { updateRef } = useContext(RefetchContext);
+  let { setCommentMod } = useContext(CommentContext);
 
   let auth = localStorage.getItem('-jwtKey-');
 
@@ -31,47 +35,45 @@ export const InputComment = ({
     },
     mutationKey: ['sendComment', 'post'],
 
-    onSuccess: () => query.refetch({ queryKey: ['post', 'getpost'] }),
+    onSuccess: () => {
+      query.refetch({ queryKey: ['post', 'getpost'] });
+      updateRef();
+    },
   });
 
   let ref = useRef<any>();
 
   return (
-    <div
-      className={`${
-        mode ? 'bg-[hsl(0,0%,10%)]' : 'bg-[hsl(0,0%,90%)]'
-      } flex flex-row items-center w-full rounded sticky bottom-0`}
-    >
+    <div className={`flex flex-row items-stretch w-full rounded sticky bottom-0 justify-between`}>
       <input
         type={'text'}
-        className={`p-2 font-open text-sm w-[85%] outline-none ${
-          mode ? 'bg-[hsl(0,0%,10%)] placeholder:text-[hsl(0,0%,80%)]' : 'bg-[hsl(0,0%,96%)]'
+        className={`p-2 font-open text-sm w-[89%] outline-none ${
+          mode
+            ? 'bg-[hsl(0,0%,20%)] text-[hsl(0,0%,90%)] placeholder:text-[hsl(0,0%,80%)]'
+            : 'bg-[hsl(0,0%,96%)] text-[hsl(0,0%,15%)]'
         } rounded-l`}
         alt='input'
         ref={ref}
         onChange={(e) => setcommentText(e.target.value)}
         placeholder='Write a comment'
       />
-      <div className='flex flex-row items-center gap-3 px-2'>
-        {['add_reaction', 'send'].map((item, index) => {
-          return (
-            <i
-              className={`${
-                mode ? 'text-gray-100' : 'text-[#191919]'
-              } text-xl material-icons-outlined text-gray-500 cursor-pointer`}
-              key={index}
-              onClick={() => {
-                if (item === 'send') {
-                  sendCommentMutation.mutate();
-                  ref.current.value = '';
-                  setTimeout(() => updateRef(), 300);
-                }
-              }}
-            >
-              {item}
-            </i>
-          );
-        })}
+      <div
+        className={`flex flex-row items-center gap-3 justify-center w-[11%] rounded ml-2 ${
+          mode ? 'bg-[hsl(0,0%,20%)]' : 'bg-[hsl(0,0%,70%)]'
+        }`}
+      >
+        <i
+          className={`${
+            mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,10%)]'
+          } text-2xl material-icons-outlined cursor-pointer self-center`}
+          onClick={() => {
+            sendCommentMutation.mutate();
+            ref.current.value = '';
+            setCommentMod(postId);
+          }}
+        >
+          send
+        </i>
       </div>
     </div>
   );

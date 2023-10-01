@@ -21,7 +21,6 @@ export const uiTime = function (date: Date) {
       divide(now, date, 1000 * 60 * 60),
       divide(now, date, 1000 * 3600 * 24),
     ];
-    console.log([sec, min, hr, day]);
     let when = ``;
     if (day > 7)
       when += `${getText(date.getDay(), 'd')}, ${getText(
@@ -43,8 +42,6 @@ export const uiTime = function (date: Date) {
     return when;
   }
 };
-
-console.log(uiTime(new Date('2023-09-18T16:01:59.089+00:00')));
 //let [createdMinute, createdHour, createdSecond, createdTime] = [
 //   date.getMinutes(),
 //   date.getHours(),

@@ -23,9 +23,9 @@ fnPost.use(cors({ origin: '*' }));
 fnPost.route('/function/post/post').post(makeAPostFunction);
 fnPost.route('/function/post/comment/post').post(postAPostComment);
 fnPost.route('/function/post/get').get(getUserPersonalPosts);
-fnPost.route('/function/post/comment/get/:id').get(getPostComment);
-fnPost.route('/function/post/like/inc/:id/:userId').put(updatePostLike);
-fnPost.route('/function/post/delete/:id').delete(deleteAPost);
 fnPost.route('/function/explore').get(getExploreUsers);
+fnPost.route('/function/post/comment/get/:id').get(getPostComment);
+fnPost.route('/function/post/like/inc/:id').put(updatePostLike);
+fnPost.route('/function/post/delete/:id').delete(deleteAPost);
 
 module.exports = fnPost;

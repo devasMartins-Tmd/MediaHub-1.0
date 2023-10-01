@@ -26,4 +26,6 @@ export type RefContextType = {
   reft: string;
   setreft: Function;
   updateRef: Function;
+  post: string;
+  setpost: Function;
 };

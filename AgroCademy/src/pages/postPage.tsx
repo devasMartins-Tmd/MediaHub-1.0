@@ -65,11 +65,19 @@ const PostPage = () => {
       ${mode ? 'bg-[#4b4b4bfd]' : 'bg-[#ffffff] shadow-2xl'}`}
       >
         <div className='sm:w-[45%] ml-2 h-auto'>
-          <img src={`${state.img}`} className='object-cover rounded-lg shadow w-full' alt='post' />
+          {state.img ? (
+            <img
+              src={`${state.img}`}
+              className='object-cover rounded-lg shadow w-full'
+              alt='post'
+            />
+          ) : (
+            <></>
+          )}
         </div>
         <textarea
           onChange={(e) => setstate((prev) => ({ ...prev, text: e.target.value }))}
-          className={`font-mond font-semibold text-left p-3 text-base border w-full outline-none ${
+          className={`font-play font-semibold text-left p-3 text-base border w-full outline-none ${
             mode
               ? 'border-[#2b2b2b] bg-[#464646] text-[#F7F7F9]'
               : 'text-[#2B2B2B] border-gray-200 bg-[#FAFAF9]'
@@ -80,7 +88,7 @@ const PostPage = () => {
           <div className={`w-auto h-auto`}>
             <input
               type={'file'}
-              className='font-mond text-base font-medium'
+              className='font-play text-base font-medium'
               placeholder='Image'
               onChange={(e) => HandleFile(e)}
             />

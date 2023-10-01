@@ -44,7 +44,7 @@ export const OxO = ({ SideBar, flag, navigate, mode, profileImg, page }: param) 
             <input
               type='search'
               placeholder="What's on your mind"
-              className='outline-none bg-transparent w-[95%] text-sm font-medium font-mond'
+              className='outline-none bg-transparent w-[95%] text-sm font-medium font-play'
             />
             <div className='flex justify-center w-[10%]'>
               <i

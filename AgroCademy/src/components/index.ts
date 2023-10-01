@@ -47,4 +47,7 @@ export { default as FeedPage } from '../pages/FeedPage.tsx'; // * * * * *
 export { default as ExplorePage } from '../pages/ExplorePage.tsx'; // * *
 export { default as FriendPage } from '../pages/FriendPage.tsx'; // * * *
 export { default as PostPage } from '../pages/postPage.tsx'; // * * *
+export { default as NotificationPage } from '../pages/NotifyPage.tsx'; // * * *
+export { default as HomeScreen } from '../components/auth/Face.tsx';
+export { default as SettingPage } from '../pages/Setting.tsx';
 //** * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * *

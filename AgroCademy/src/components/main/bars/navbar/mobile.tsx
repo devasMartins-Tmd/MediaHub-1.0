@@ -11,14 +11,14 @@ const MobileNavbar = () => {
       <main className='w-full flex flex-row items-center justify-between px-4 py-1'>
         <div className='flex flex-row items-center w-[55%]'>
           <i className={`fa text-2xl mr-2 ${mode ? 'text-[#FAFAF9]' : 'text-[#111111]'}`}>
-            &#xf20d;
+            &#xf20e;
           </i>
           <p
-            className={`text-xl font-open font-semibold ${
+            className={`text-xl font-play font-semibold ${
               mode ? 'text-[#FAFAF9]' : 'text-[#111111]'
             } uppercase`}
           >
-            Agrocademy
+            Twilight
           </p>
         </div>
         <div className='flex flex-row items-center justify-between w-auto'>

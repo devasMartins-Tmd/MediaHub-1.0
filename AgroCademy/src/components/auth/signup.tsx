@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import AuthContext from '../../context/auth';
-import { LoginAuth } from '..';
+import { Loader, LoginAuth } from '..';
 import { useMutation } from '@tanstack/react-query';
 import { authenticationFn } from './query';
 import { backendUrl } from '../main/utils/url';
@@ -12,28 +12,24 @@ const SignUpAuth: React.FC = () => {
     name: '',
     email: '',
     password: '',
-    tag: '',
   });
 
   const handleInput = (e: any) => {
-    let { name, value: val } = e.target;
-    let tagVal = name === 'tag' ? (val === 'farmer' ? 1 : 0) : val;
+    let { name, value } = e.target;
     setformState((prev) => ({
       ...prev,
-      [name]: tagVal,
+      [name]: value,
     }));
   };
 
   const mutation = useMutation({
     mutationFn: () => authenticationFn(backendUrl + '/auth/signup', formState),
     mutationKey: ['signup', 'auth'],
+    onSuccess: () => setAuthPage({ currentPage: <LoginAuth /> }),
+    onError: (err) => console.log(err),
   });
 
-  useEffect(() => {
-    if (mutation.status == 'loading') console.log('loading...');
-    if (mutation.status == 'error') console.log(mutation.error);
-    if (mutation.status == 'success') console.log(mutation.data);
-  }, [mutation.status]);
+  if (mutation.status == 'loading') return <Loader on={mutation.isLoading} />;
 
   return (
     <form className={'w-[78%] flex flex-col items-center gap-3 justify-evenly h-[90%] mx-auto '}>
@@ -54,24 +50,6 @@ const SignUpAuth: React.FC = () => {
           onChange={handleInput}
           name='email'
         />
-      </div>
-      <div className='flex flex-col items-start w-full justify-between'>
-        <select
-          name='tag'
-          id='person'
-          onChange={handleInput.bind(this)}
-          className='sm:p-3 p-2 block w-full outline-none rounded bg-[#FAFAFA] border border-zinc-100'
-        >
-          <option className='font-slab text-base text-center text-zinc-400' value='customer'>
-            Are you a farmer?❔
-          </option>
-          <option className='font-slab text-base' value='customer'>
-            No
-          </option>
-          <option className='font-slab text-base' value='farmer'>
-            Yes
-          </option>
-        </select>
       </div>
       <div className='flex flex-col items-startjustify-between gap-1 w-full'>
         <input

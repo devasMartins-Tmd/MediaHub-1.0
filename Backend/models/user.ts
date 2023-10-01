@@ -18,6 +18,9 @@ const user = new mongoose.Schema({
     type: String,
     required: ['uniqueId field required', true],
   },
+  publicId: {
+    type: String,
+  },
   tag: {
     type: String,
     required: ['tag field required', true],

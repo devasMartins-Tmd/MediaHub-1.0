@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { updateFriends } from '../controllers/put';
+import { updateFriendOff, updateFriends } from '../controllers/put';
+import { getFriends } from '../controllers/get';
 
 const friendRoute = express.Router();
 
@@ -9,5 +10,7 @@ friendRoute.use(cors({ origin: '*' }));
 friendRoute.use(express.urlencoded({ extended: true }));
 
 friendRoute.route('/friend/add').put(updateFriends);
+friendRoute.route('/friend/get').get(getFriends);
+friendRoute.route('/friend/remove').put(updateFriendOff);
 
 module.exports = friendRoute;

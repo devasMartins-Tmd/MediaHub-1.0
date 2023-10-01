@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from 'react';
 import { PageContextType } from '../type/context';
-import { FeedPage, ExplorePage, FriendPage } from '../components';
+import { FeedPage, ExplorePage, FriendPage, NotificationPage, SettingPage } from '../components';
 
 const PageContext = createContext<PageContextType>(undefined as any);
 
@@ -9,8 +9,8 @@ export const PageProvider = ({ children }: { children: ReactNode }) => {
     '0x1': <FeedPage />,
     '0x2': <ExplorePage />,
     '0x3': <FriendPage />,
-    '0x4': '',
-    '0x5': '',
+    '0x4': <NotificationPage />,
+    '0x5': <SettingPage />,
     '0x6': '',
     '0x7': '',
     '0x8': '',

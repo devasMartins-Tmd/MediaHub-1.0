@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { Authentication, PostPage, UI } from './components';
+import { Authentication, HomeScreen, PostPage, UI } from './components';
 import { AuthContextProvider } from './context/auth';
 import { ToggleBarProvider } from './context/sidebar';
 import { ThemeProvider } from './context/theme';
@@ -17,7 +17,8 @@ const App: React.FC = () => {
             <CommentProvider>
               <RefetchProvider>
                 <Routes>
-                  <Route element={<Authentication />} path={'/'}></Route>
+                  <Route element={<HomeScreen />} path={'/'}></Route>
+                  <Route element={<Authentication />} path={'/index'}></Route>
                   <Route element={<UI />} path={'/home'}></Route>
                   <Route element={<PostPage />} path={'/post'}></Route>
                 </Routes>

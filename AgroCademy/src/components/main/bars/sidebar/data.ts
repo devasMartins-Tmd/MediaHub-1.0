@@ -21,8 +21,8 @@ export let sidebarCol = [
   },
   ,
   {
-    name: 'Following',
-    icon: 'hub',
+    name: 'Notifications',
+    icon: 'notifications',
     index: '0x4',
   },
   {

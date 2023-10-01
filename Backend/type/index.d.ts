@@ -7,6 +7,8 @@ type userT = {
   uniqueId?: string | undefined;
   tag?: string | undefined;
   id: mongoose.Schema.Types.ObjectId;
+  profileImg: string | undefined;
+  publicId: string | undefined;
 };
 
 interface authBody {

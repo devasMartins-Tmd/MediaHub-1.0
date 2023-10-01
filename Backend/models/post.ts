@@ -36,7 +36,7 @@ const post = new mongoose.Schema(
       required: ['tag required', true],
     },
     likeUserId: {
-      type: [{ type: mongoose.Schema.Types.String }],
+      type: [mongoose.Schema.Types.String],
     },
   },
   { timestamps: true }
