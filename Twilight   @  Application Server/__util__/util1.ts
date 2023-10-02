@@ -2,6 +2,8 @@ import jsonWebToken from 'jsonwebtoken';
 const { sign } = jsonWebToken;
 require('dotenv').config({ path: '../.env' });
 import * as path from 'fs';
+import { Request } from 'express';
+import mongoose from 'mongoose';
 // *************************************************************************************
 type credentialType = {
    name?: string;
@@ -11,7 +13,8 @@ type credentialType = {
 };
 export function verifyCredentials(credentials: credentialType, action: 'Login' | 'Signup') {
    if (action === 'Login' && credentials.email && credentials.password) return true;
-   if ((action === 'Signup' && credentials.name && credentials.email && credentials.password && credentials.tag === '1') || '0') return true;
+   if ((action === 'Signup' && credentials.name && credentials.email && credentials.password && credentials.tag === '1') || '0')
+      return true;
    return false;
 }
 // ****************************************************************************************
@@ -79,3 +82,22 @@ export const MakeImage = function (img: any, name: string) {
    let isDone = fileExist(fileName);
    return [isDone, fileName];
 };
+
+/**
+ * getId: Function (get id from jwt token)
+ */
+export const getId = (req: Request) => {
+   let tokenId: any = jsonWebToken.decode(req.headers.authorization || '');
+   tokenId = tokenId['id'];
+   return tokenId;
+};
+
+export const notifyMessage = (id: mongoose.Types.ObjectId | undefined, text: string, type: string) => {
+   return {
+      text,
+      type,
+      userId: id,
+   };
+};
+
+export const assetFolder = ['FarmHub_User_Post_Img', 'FarmHub_User_Profile_Img'];

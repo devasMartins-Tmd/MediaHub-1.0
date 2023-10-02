@@ -3,20 +3,19 @@
  * @route /function/delete/'*'
  */
 import { Request, Response } from 'express';
-import jsonWebToken from 'jsonwebtoken';
 import userModel from '../models/user';
 import post from '../models/post';
 import { userT } from '../type';
 import * as cloudinary from 'cloudinary';
 import all from '../models/misc';
+import { getId } from '../__util__/util1';
 
 export const deleteAPost = async (req: Request, res: Response) => {
-   let tokenId: any = jsonWebToken.decode(req.headers.authorization || '');
-   tokenId = tokenId['id'];
+   let tokenId = getId(req);
    let user: userT | null = await userModel.findById(tokenId);
    if (user && user.id) {
-      let postId = req.params.id;
-      let postExist = await post.findById(postId);
+      let postId = req.params.id,
+         postExist = await post.findById(postId);
       const not = await all.notifications.create({
          text: `Post deleted successfully`,
          type: 'danger',
@@ -45,8 +44,7 @@ export const deleteAPost = async (req: Request, res: Response) => {
 };
 
 export const deleteNotification: any = async (req: Request, res: Response) => {
-   let tokenId: any = jsonWebToken.decode(req.headers.authorization || '');
-   tokenId = tokenId['id'];
+   let tokenId = getId(req);
    let user: userT | null = await userModel.findById(tokenId);
    let notificationId = req.body.id;
    if (user && user.id) {
@@ -59,8 +57,7 @@ export const deleteNotification: any = async (req: Request, res: Response) => {
 };
 
 export const deleteAccount = async (req: Request, res: Response) => {
-   let tokenId: any = jsonWebToken.decode(req.headers.authorization || '');
-   tokenId = tokenId['id'];
+   let tokenId = getId(req);
    let { password } = req.body;
    let user: userT | null = await userModel.findById(tokenId);
    let fromUserPassword = await userModel.find({ password });
@@ -73,11 +70,9 @@ export const deleteAccount = async (req: Request, res: Response) => {
       await all.friends.deleteMany({
          userId: user?.id,
       });
-
       await all.notifications.deleteMany({
          userId: user?.id,
       });
-
       if (drop) res.status(200).json({ done: true });
       else res.status(404).json({ done: false, message: 'User not found!' });
    } else {

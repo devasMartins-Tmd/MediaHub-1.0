@@ -5,22 +5,21 @@ import { FeedPage, ExplorePage, FriendPage, NotificationPage, SettingPage } from
 const PageContext = createContext<PageContextType>(undefined as any);
 
 export const PageProvider = ({ children }: { children: ReactNode }) => {
-  let pagesObject: { [key: string]: ReactNode } = {
-    '0x1': <FeedPage />,
-    '0x2': <ExplorePage />,
-    '0x3': <FriendPage />,
-    '0x4': <NotificationPage />,
-    '0x5': <SettingPage />,
-    '0x6': '',
-    '0x7': '',
-    '0x8': '',
-  };
-  let [page, setpage] = useState<ReactNode>(pagesObject['0x1']);
+   let pagesObject: { [key: string]: ReactNode } = {
+      '0x1': <FeedPage />,
+      '0x2': <ExplorePage />,
+      '0x3': <FriendPage />,
+      '0x4': <NotificationPage />,
+      '0x5': <SettingPage />,
+   };
+   let [page, setpage] = useState<ReactNode>(pagesObject['0x1']);
+   let [key, setkey] = useState('');
 
-  const setPage = (id: string) => {
-    setpage(pagesObject[id]);
-  };
-  return <PageContext.Provider value={{ page, setPage }}>{children}</PageContext.Provider>;
+   const setPage = (id: string) => {
+      setpage(pagesObject[id]);
+      setkey(id);
+   };
+   return <PageContext.Provider value={{ page, setPage, key }}>{children}</PageContext.Provider>;
 };
 
 export default PageContext;

@@ -88,9 +88,7 @@ export default function PostTemplate({
             />
 
             <div className='w-full flex justify-start my-0.5 ml-5 max-h-[30%] overflow-scroll' id={'post_scroll'}>
-               <p className={`${mode ? 'text-slate-100' : 'text-[#191919]'} text-sm text-left font-play font-normal h-auto`}>
-                  {text}
-               </p>
+               <p className={`${mode ? 'text-slate-100' : 'text-[#191919]'} text-sm text-left font-play font-medium h-auto`}>{text}</p>
             </div>
 
             <div className='w-full h-auto'>
@@ -107,9 +105,7 @@ export default function PostTemplate({
                   data.comments.map((item: any, index: number) => {
                      return (
                         <div className='flex flex-row items-start w-full p-2 px-4 border-y' key={index}>
-                           <div
-                              className={`${mode ? 'border-green-200' : 'border-black'} w-10 h-10 rounded-full shadow border`}
-                           ></div>
+                           <div className={`${mode ? 'border-green-200' : 'border-black'} w-10 h-10 rounded-full shadow border`}></div>
                            <div className='flex flex-col items-start ml-3'>
                               <p
                                  className={`${

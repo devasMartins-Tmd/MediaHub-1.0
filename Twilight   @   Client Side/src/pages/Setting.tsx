@@ -70,6 +70,7 @@ const Setting = () => {
          console.log(data);
          updateRef();
          navigate('/');
+         localStorage.removeItem('profileImg');
       },
    });
 
@@ -108,20 +109,17 @@ const Setting = () => {
    }`;
 
    return (
-      <section className='flex flex-col items-start w-full justify-start mt-5'>
-         <p
-            className={`${
-               mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'
-            } text-xl text-left font-medium font-play mb-3 px-4`}
-         >
+      <section className='flex flex-col items-start w-full justify-start'>
+         <header className='w-full flex justify-center mb-3 border-b border-gray-200'>
+            <h1 className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,10%)]'} font-play text-xl`}>Settings</h1>
+         </header>
+         <p className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} text-xl text-left font-medium font-play mb-3 px-4`}>
             Public Profile
          </p>
          <div className='flex flex-row items-start w-auto px-4'>
             <img
                src={data?.user.profileImg || Exp}
-               className={`${
-                  mode ? 'border-[hsl(0,0%,90%)]' : 'border-[hsl(0,0%,20%)]'
-               } border h-[70px] w-[70px] rounded-full shadow mr-5`}
+               className={`${mode ? 'border-[hsl(0,0%,90%)]' : 'border-[hsl(0,0%,20%)]'} border h-[70px] w-[70px] rounded-full shadow mr-5`}
                alt='profileImg'
             />
             <div className='flex flex-col items-start'>
@@ -146,10 +144,7 @@ const Setting = () => {
          <form className='sm:w-[75%] sm:mx-0 mx-auto w-[93%] flex flex-col mt-5'>
             <div className='grid sm:grid-cols-2 grid-cols-1 w-full gap-3'>
                <div className='flex flex-col items-start justify-start'>
-                  <label
-                     htmlFor='Name'
-                     className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}
-                  >
+                  <label htmlFor='Name' className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}>
                      First Name
                   </label>
                   <input
@@ -161,10 +156,7 @@ const Setting = () => {
                   />
                </div>
                <div className='flex flex-col items-start justify-start'>
-                  <label
-                     htmlFor='email'
-                     className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}
-                  >
+                  <label htmlFor='email' className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}>
                      Email
                   </label>
                   <input
@@ -178,10 +170,7 @@ const Setting = () => {
                </div>
             </div>
             <div className='flex flex-col items-start justify-start mt-2'>
-               <label
-                  htmlFor='password'
-                  className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}
-               >
+               <label htmlFor='password' className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}>
                   Old Password
                </label>
                <input
@@ -194,10 +183,7 @@ const Setting = () => {
                />
             </div>
             <div className='flex flex-col items-start justify-start mt-3'>
-               <label
-                  htmlFor='password'
-                  className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}
-               >
+               <label htmlFor='password' className={`${mode ? 'text-[hsl(0,0%,90%)]' : 'text-[hsl(0,0%,20%)]'} font-thin font-play`}>
                   New password
                </label>
                <input
@@ -225,11 +211,8 @@ const Setting = () => {
             </div>
 
             <button
-               className={`mt-10 mb-2 text-2xl font-play p-3 ${
-                  mode
-                     ? 'border border-[red] bg-[hsl(0,36%,25%)] text-[hsl(0,0%,90%)]'
-                     : 'bg-[hsl(0,41%,79%)] text-[hsl(0,0%,10%)]'
-               }`}
+               className={`mt-10 mb-2 text-base font-play p-1 border border-[red]  text-[red]
+               `}
             >
                Danger
             </button>

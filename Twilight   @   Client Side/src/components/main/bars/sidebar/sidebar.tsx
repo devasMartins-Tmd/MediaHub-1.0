@@ -6,10 +6,12 @@ import PageContext from '../../../../context/page';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { backendUrl } from '../../utils/url';
+import ToggleBarContext from '../../../../context/sidebar';
 
 const Sidebar = () => {
    let navigate = useNavigate();
    let auth = localStorage.getItem('-jwtKey-');
+   let { flag, setflag } = useContext(ToggleBarContext);
 
    let [leftPartition, rightPartition] = [sidebarCol.slice(0, 4), sidebarCol.slice(4)];
 
@@ -47,11 +49,13 @@ const Sidebar = () => {
    return (
       <section className={`${isdark ? 'bg-[#242424]' : 'bg-white'} flex flex-col items-center w-full shadow-xl`}>
          <header className='sm:hidden flex flex-row items-center w-full justify-between p-5'>
-            <i className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} material-icons-outlined text-2xl`}>chevron_left</i>
             <i
+               onClick={() => setflag(!flag)}
                className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} material-icons-outlined text-2xl`}
-               onClick={() => navigate('/')}
             >
+               chevron_left
+            </i>
+            <i className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} material-icons-outlined text-2xl`} onClick={() => navigate('/')}>
                power_settings_new
             </i>
          </header>
@@ -90,12 +94,8 @@ function RightPart({ arr, setPage, isdark }: { arr: any[]; setPage: Function; is
                   onClick={() => setPage(item?.index)}
                >
                   <div className='flex flex-row items-center'>
-                     <i className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} material-icons-outlined text-xl mr-5`}>
-                        {item?.icon}
-                     </i>
-                     <span className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} text-base font-play font-medium`}>
-                        {item?.name}
-                     </span>
+                     <i className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} material-icons-outlined text-xl mr-5`}>{item?.icon}</i>
+                     <span className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} text-base font-play font-medium`}>{item?.name}</span>
                   </div>
                   <div className={`flex justify-center ${item?.name === 'Dark mode' ? '' : 'hidden'}`}>
                      <Switch />
@@ -119,12 +119,8 @@ function LeftPart({ arr, setPage, isdark }: { arr: any[]; setPage: Function; isd
                   onClick={() => (item?.name !== 'Dark mode' ? setPage(item?.index) : console.log('Icon'))}
                >
                   <div className='flex flex-row items-center'>
-                     <i className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} material-icons-outlined text-xl mr-5`}>
-                        {item?.icon}
-                     </i>
-                     <span className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} text-base font-play font-medium`}>
-                        {item?.name}
-                     </span>
+                     <i className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} material-icons-outlined text-xl mr-5`}>{item?.icon}</i>
+                     <span className={`${isdark ? 'text-[#FAFAF9]' : 'text-[#111111]'} text-base font-play font-medium`}>{item?.name}</span>
                   </div>
                   <div className={`flex justify-center ${item?.name === 'Dark mode' ? '' : 'hidden'}`}>
                      <Switch />

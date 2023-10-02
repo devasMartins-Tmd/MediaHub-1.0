@@ -54,7 +54,7 @@ const FeedPage = () => {
                return (
                   <div key={index}>
                      <PostTemplate
-                        img={item.img || profileImg}
+                        img={(item.img || '') ?? profileImg}
                         name={item.name}
                         text={item.text}
                         date={item.createdAt}

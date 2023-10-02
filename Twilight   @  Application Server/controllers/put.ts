@@ -9,12 +9,13 @@ import userModel from '../models/user';
 import post from '../models/post';
 import { userT } from '../type';
 import all from '../models/misc';
-import { MakeImage, filterObject } from '../__util__/util1';
+import { MakeImage, filterObject, getId, notifyMessage, assetFolder } from '../__util__/util1';
 import * as cloudinary from 'cloudinary';
 
+const [Post, Profile] = assetFolder;
+
 export const updatePostLike = async (req: Request, res: Response) => {
-   let tokenId: any = jsonWebToken.decode(req.headers.authorization || '');
-   tokenId = tokenId['id'];
+   let tokenId: any = getId(req);
    let user: userT | null = await userModel.findById(tokenId);
    if (user && user.id) {
       let postId = req.params.id;
@@ -28,6 +29,7 @@ export const updatePostLike = async (req: Request, res: Response) => {
                type: 'success',
                userId: postExist.userId,
             });
+            await all.notifications.create(notifyMessage(postExist.userId, `${user.name} Liked your post`, 'success'));
             res.status(200).json({ done: true, message: 'Like Incremented!' });
          } else {
             await postExist.updateOne({ $pull: { likeUserId: user.id }, $inc: { likes: -1 } });
@@ -71,8 +73,7 @@ export const updateFriendOff = async (req: Request, res: Response) => {
 };
 
 export const updateProfile = async (req: Request, res: Response) => {
-   let tokenId: any = jsonWebToken.decode(req.headers.authorization || '');
-   tokenId = tokenId['id'];
+   let tokenId: any = getId(req);
    let user: userT | null = await userModel.findById(tokenId);
    if (user && user.id) {
       const { img, info } = filterObject(req.body);
@@ -83,51 +84,31 @@ export const updateProfile = async (req: Request, res: Response) => {
 
          if (isDone && fileName) {
             if (user.publicId && user.profileImg) {
-               cloudinary.v2.uploader.destroy(
-                  `FarmHub_User_Profile_Img/${user.publicId}` || '',
-                  {
-                     invalidate: true,
-                  },
-                  (err, result) => {
-                     if (err) return console.log(err);
-                     else console.log(result);
-                  }
-               );
-            }
-            cloudinary.v2.uploader.upload(
-               `./${fileName}`,
-               {
-                  folder: 'FarmHub_User_Profile_Img',
-                  public_id: pubId,
-               },
-               async (err, response) => {
+               cloudinary.v2.uploader.destroy(`${Profile}/${user.publicId}` || '', { invalidate: true }, (err, result) => {
                   if (err) return console.log(err);
-                  if (response && response.type === 'upload') {
-                     info['profileImg'] = response.url;
-                     info['publicId'] = pubId;
-                     const upd: any = await userModel.findByIdAndUpdate(tokenId, info);
-                     if (upd) {
-                        await all.notifications.create({
-                           text: `Profile successfully updated!`,
-                           type: 'success',
-                           userId: user?.id,
-                        });
-                        res.status(200).json({ done: true, message: 'updated!' });
-                     } else {
-                        res.status(400).json({ done: false, message: 'Post not created!' });
-                     }
-                  } else res.status(400).json({ done: false, message: 'Error!' });
-               }
-            );
+                  else console.log(result);
+               });
+            }
+
+            cloudinary.v2.uploader.upload(`./${fileName}`, { folder: Profile, public_id: pubId }, async (err, response) => {
+               if (err) return console.log(err);
+               if (response && response.type === 'upload') {
+                  info['profileImg'] = response.url;
+                  info['publicId'] = pubId;
+                  const upd: any = await userModel.findByIdAndUpdate(tokenId, info);
+                  if (upd) {
+                     await all.notifications.create(notifyMessage(tokenId, 'Profile created successfully', 'success'));
+                     res.status(200).json({ done: true, message: 'updated!' });
+                  } else {
+                     res.status(400).json({ done: false, message: 'Post not created!' });
+                  }
+               } else res.status(400).json({ done: false, message: 'Error!' });
+            });
          } else res.status(400).json({ done: false, message: 'Image is not created' });
       } else {
          const upd: any = await userModel.findByIdAndUpdate(tokenId, info);
          if (upd) {
-            await all.notifications.create({
-               text: `Profile successfully updated!`,
-               type: 'success',
-               userId: user?.id,
-            });
+            await all.notifications.create(notifyMessage(tokenId, 'Post created successfully', 'success'));
             res.status(200).json({ done: true, message: 'updated!' });
          } else res.status(400).json({ done: false, message: 'Post not created!' });
       }
